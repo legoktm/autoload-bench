@@ -6,7 +6,7 @@ use Seld\AutoloadBench\Builder;
 
 class ClassMap extends Builder
 {
-    protected function build($classes, $path)
+    protected function build($classes, $path, $prefixMapLevel)
     {
         $code = '<?php return new \Seld\AutoloadBench\Loader\ClassMap(%s);';
 

@@ -17,7 +17,7 @@ abstract class Builder
         $this->instance = NULL;
     }
 
-    abstract protected function build($classes, $path);
+    abstract protected function build($classes, $path, $prefixMapLevel);
 
     public function enabled()
     {
@@ -32,4 +32,14 @@ abstract class Builder
 
         return $this->instance;
     }
+
+	protected function getNamespaceMap(array $classes, $path, $prefixMapLevel) {
+		$prefixes = array();
+		foreach ($classes as $class) {
+			$prefix = implode('\\', array_slice(explode('\\', $class), 0, $prefixMapLevel));
+			$prefixes[$prefix] = $path;
+		}
+
+		return $prefixes;
+	}
 }

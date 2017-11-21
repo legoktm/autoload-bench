@@ -6,7 +6,7 @@ use Seld\AutoloadBench\Builder;
 
 class PSR0 extends Builder
 {
-    protected function build($classes, $path, $prefixMapLevel = 1)
+    protected function build($classes, $path, $prefixMapLevel)
     {
         $code = <<<'EOF'
 <?php
@@ -22,11 +22,7 @@ return $loader;
 EOF
 ;
 
-        $prefixes = array();
-        foreach ($classes as $class) {
-            $prefix = implode('\\', array_slice(explode('\\', $class), 0, $prefixMapLevel));
-            $prefixes[$prefix] = $path;
-        }
+        $prefixes = $this->getNamespaceMap($classes, $path, $prefixMapLevel);
 
         file_put_contents($this->path.'/loader.php', sprintf($code, var_export($prefixes, true)));
     }

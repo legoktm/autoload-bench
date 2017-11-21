@@ -6,7 +6,7 @@ use Seld\AutoloadBench\Builder;
 
 class APC extends Builder
 {
-    protected function build($classes, $path)
+    protected function build($classes, $path, $prefixMapLevel)
     {
         if (function_exists('apc_clear_cache')) {
             apc_clear_cache('user');
